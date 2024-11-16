@@ -2,7 +2,7 @@
 
 基于 UEditor 二次开发的富文本编辑器，让UEditor重新焕发活力
 
-![UEditor Plus](https://ms-assets.modstart.com/demo/UEditorPlus_v2.1.0.jpeg)
+![输入图片说明](%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20241116195402.png)
 
 > `/dist/` 和 `/dist-min/` 目录分别为构建的非压缩和压缩版代码，可直接使用
 
