@@ -1,6 +1,6 @@
 # UEditor Plus
 
-基于 UEditor 二次开发的富文本编辑器，让UEditor重新焕发活力
+基于 UEditor 二次开发的富文本编辑器，让UEditor重新焕发活力 (已集成135编辑器、秀米编辑器)
 
 ![输入图片说明](%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20241116195402.png)
 
