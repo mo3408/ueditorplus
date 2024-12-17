@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<input type="file" name="file"/>
+<div id="container" style="margin:10px;padding:10px;border:1px solid; text-align:left; min-height:500px;"></div>
+<script src="./../docx2html.min.js"></script>
+<script>
+    const docx2html = require("docx2html");
+    document.querySelector('input[type=file]').addEventListener('change', function (e) {
+        docx2html(e.target.files[0], {container: document.querySelector("#container")})
+            .then(function (html) {
+                console.log(html);
+            });
+    });
+</script>
+</body>
+</html>
