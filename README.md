@@ -52,6 +52,10 @@ git clone https://gitee.com/mo3408/ueditorplus
 - UEditorplus第三方链接：[https://gitee.com/modstart-lib/ueditor-plus](https://gitee.com/modstart-lib/ueditor-plus)
 
 ## 更新日志
+
+- 2024-12-17：
+- 上传gif图片格式后，原图动画被取消，默认禁用gif图片压缩
+- 优化：图标样式大小统一调整优化，避免部分图标显示大小不统一
 - 2024-11-16 增加代码脑图功能，可在编辑器中插入代码脑图
 - 2024-11-14 已增加秀米编辑器可同步微信公众号文章（第三方平台请参考平台）
 - 2024-10-01 已增加135编辑器可同步微信公众号文章（第三方平台请参考平台）
