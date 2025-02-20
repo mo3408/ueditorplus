@@ -52,7 +52,11 @@ git clone https://gitee.com/mo3408/ueditorplus
 - UEditorplus第三方链接：[https://gitee.com/modstart-lib/ueditor-plus](https://gitee.com/modstart-lib/ueditor-plus)
 
 ## 更新日志
-
+- 2025-02-20：
+- 已知问题修复，表格自适应，全屏编辑优化
+- 修复：编辑器全屏编辑特定情况下异常问题
+- 修复：通过url添加某些视频，按backspace无法删除视频，示例100%复现
+- 优化：移除无用的代码配置
 - 2024-12-17：
 - 上传gif图片格式后，原图动画被取消，默认禁用gif图片压缩
 - 优化：图标样式大小统一调整优化，避免部分图标显示大小不统一
