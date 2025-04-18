@@ -1,18 +1,3 @@
-.edui-button.edui-for-135editor .edui-button-wrap .edui-button-body .edui-icon{
-
-    background-image: url("https://static.135editor.com/img/icons/editor-135-icon.png") !important;
-
-    background-size: 85%;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-}
-.edui-button.edui-for-xiumi-connect .edui-button-wrap .edui-button-body .edui-icon {
-    background-image: url("https://geh3408.top/xiumi-connect-icon.png") !important;
-    background-size: contain;
-}
 /*UI工具栏、编辑区域、底部*/
 .edui-default .edui-editor {
     border: 1px solid var(--edui-color-border);
