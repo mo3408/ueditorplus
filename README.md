@@ -52,6 +52,12 @@ git clone https://gitee.com/mo3408/ueditorplus
 - UEditorplus第三方链接：[https://gitee.com/modstart-lib/ueditor-plus](https://gitee.com/modstart-lib/ueditor-plus)
 
 ## 更新日志
+- 2025-04-18：
+- 新增：AI功能，支持富文本续写、内容优化、内容生成等功能
+- 新增：toolbarShows 选项配置，支持动态配置工具栏显示
+- 新增：shortcutMenuShows 选项配置，支持动态配置快捷菜单显示
+- 新增：AI接口对接，支持 OpenAi、DeepSeek 模型对接
+- 优化：编辑器弹窗界面显示和颜色优化
 - 2025-02-20：
 - 已知问题修复，表格自适应，全屏编辑优化
 - 修复：编辑器全屏编辑特定情况下异常问题
