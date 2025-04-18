@@ -113,34 +113,34 @@
             // autoHeightEnabled: false,
             // retainOnlyLabelPasted: true,
             ai:{
-                driver: 'deepseek',
+                driver: 'DeepSeek',
                  driverConfig: {
                       // 模型API地址，留空使用默认
-                      url: 'https://api.deepseek.com',
+                      url: '',
                       // 大模型平台Key
                       key: 'sk-9f716938a8ce4578a88fdc933d498009',
                       // 大模型平台模型
                       model: 'deepseek-chat',
                 },
                 // 自定义接入
-                driverRequest: function (option) {
-                    console.log(option)
-                    var texts = []
-                    var i = 0;
-                    var mock = function () {
-                        var text = "测试" + (i++)
-                        texts.push(text)
-                        if (texts.length >= 10) {
-                            // 调用 onFinish 方法表示结束
-                            option.onFinish({code: 0, msg: 'ok', data: {text: texts.join("")}})
-                            return
-                        }
-                        // 调用 onStream 方法模拟流式返回
-                        option.onStream({code: 0, msg: 'ok', data: {text: text}})
-                        setTimeout(mock, 50);
-                    };
-                    mock();
-                },
+                // driverRequest: function (option) {
+                //     console.log(option)
+                //     var texts = []
+                //     var i = 0;
+                //     var mock = function () {
+                //         var text = "测试" + (i++)
+                //         texts.push(text)
+                //         if (texts.length >= 10) {
+                //             // 调用 onFinish 方法表示结束
+                //             option.onFinish({code: 0, msg: 'ok', data: {text: texts.join("")}})
+                //             return
+                //         }
+                //         // 调用 onStream 方法模拟流式返回
+                //         option.onStream({code: 0, msg: 'ok', data: {text: text}})
+                //         setTimeout(mock, 50);
+                //     };
+                //     mock();
+                // },
                  aiFunctions:[
                     {
                       text: '<i class="edui-iconfont edui-icon-translate"></i> 翻译',
