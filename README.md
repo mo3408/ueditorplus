@@ -46,13 +46,6 @@ git clone https://gitee.com/mo3408/ueditorplus
 
 使用浏览器打开 `dist或者dist-min/index.html` 页面相关内容，完成功能开发
 
-## UEditor相关链接
-
-- UEditor 官网：[http://ueditor.baidu.com](http://ueditor.baidu.com)
-- UEditor API 文档：[http://ueditor.baidu.com/doc](http://ueditor.baidu.com/doc)
-- UEditor 文档：[http://fex.baidu.com/ueditor/](http://fex.baidu.com/ueditor/)
-- UEditor API 文档：[http://ueditor.baidu.com/doc](http://ueditor.baidu.com/doc)
-- UEditorplus第三方链接：[https://gitee.com/modstart-lib/ueditor-plus](https://gitee.com/modstart-lib/ueditor-plus)
 
 ## 更新日志
 - 2025-04-18：
