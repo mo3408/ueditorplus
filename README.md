@@ -40,6 +40,10 @@
 
 ```shell
 git clone https://gitee.com/mo3408/ueditorplus
+
+或
+
+git clone https://gitcode.com/mo3408/ueditorplus.git
 ```
 
 ### 第二步，开始功能开发
