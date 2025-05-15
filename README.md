@@ -17,7 +17,6 @@
 - 图片、文件、视频上传配置化定制增强
 - 演示界面重构，右上角可直接查看当前演示界面代码
 - 兼容现有UEditor，实现无缝切换
-- Vue版本暂定中
 
 ## 使用教程
 
@@ -34,6 +33,50 @@
     });
 </script>
 ```
+##vue2 使用
+```
+npm i --save vue-ueditor-wrap@2.x
+# 或
+yarn add --save vue-ueditor-wrap@2.x
+```
+解压 UEditorPlus 到静态资源目录
+
+复制 dist-min 到项目 public/static/UEditorPlus/ 目录
+引入组件并使用
+
+```
+
+<template>
+    <div>
+        <vue-ueditor-wrap v-model="content"
+                          editor-id="editor"
+                          :config="editorConfig"
+                          :editorDependencies="['ueditor.config.js','ueditor.all.js']"
+                          style="height:500px;"/>
+    </div>
+</template>
+<script>
+    import VueUeditorWrap from 'vue-ueditor-wrap'
+
+    export default {
+        components: {
+            VueUeditorWrap
+        },
+        data() {
+            return {
+                content: '<p>Hello UEditorPlus</p>',
+                editorConfig: {
+                    // 后端服务地址，后端处理参考
+                    serverUrl: '/api/path/to/server',
+                    UEDITOR_HOME_URL: '/static/UEditorPlus/',
+                    UEDITOR_CORS_URL: '/static/UEditorPlus/',
+                }
+            }
+        }
+    }
+</script>
+```
+
 ## 二次开发
 
 ### 第一步，clone代码到本地
