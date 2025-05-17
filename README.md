@@ -1,4 +1,5 @@
-# UEditor Plus
+# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus)
+
 
 🌈🌈🌈祝开发者2025端午节快乐！基于 UEditor 二次开发的富文本编辑器，让UEditor重新焕发活力 (已集成135编辑器、秀米编辑器)
 
