@@ -1,4 +1,5 @@
-# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus)
+# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus) [![star](https://img.shields.io/github/stars/modstart-lib/ueditor-plus.svg)](https://github.com/mo3408/ueditorplus)  
+
 
 
 🌈🌈🌈祝开发者2025即将到来的国庆及中秋节快乐！UEditorPlus 是基于 UEditor 二次开发的富文本编辑器，让 UEditor 焕然一新,已集成秀米、135编辑器，会不定时更新！！！
