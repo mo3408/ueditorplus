@@ -1,4 +1,4 @@
-# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus) [![star](https://img.shields.io/github/stars/modstart-lib/ueditor-plus.svg)](https://github.com/mo3408/ueditorplus)  
+# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus) [![star](https://img.shields.io/github/stars/mo3408/ueditorplus.svg)](https://github.com/mo3408/ueditorplus)  
 
 
 
