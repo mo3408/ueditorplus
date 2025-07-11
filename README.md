@@ -46,20 +46,15 @@ yarn add --save vue-ueditor-wrap@2.x
 复制 dist-min 到项目 public/static/UEditorPlus/ 目录
 引入组件并使用
 
-```
+```html
 
 <template>
     <div>
-        <vue-ueditor-wrap v-model="content"
-                          editor-id="editor"
-                          :config="editorConfig"
-                          :editorDependencies="['ueditor.config.js','ueditor.all.js']"
-                          style="height:500px;"/>
+        <vue-ueditor-wrap v-model="content" editor-id="editor" :config="editorConfig" :editorDependencies="['ueditor.config.js','ueditor.all.js']" style="height:500px;"/>
     </div>
 </template>
 <script>
     import VueUeditorWrap from 'vue-ueditor-wrap'
-
     export default {
         components: {
             VueUeditorWrap
