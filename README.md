@@ -40,7 +40,7 @@
     });
 </script>
 ```
-vue2 使用
+### vue2 使用
 ```
 npm i --save vue-ueditor-wrap@2.x
 # 或
