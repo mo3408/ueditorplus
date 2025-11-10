@@ -1,6 +1,5 @@
 /*基础UI构建
 */
-/* ------------------------------------------------------ */
 .edui-button.edui-for-135editor .edui-button-wrap .edui-button-body .edui-icon{
 
     background-image: url("https://static.135editor.com/img/icons/editor-135-icon.png") !important;
@@ -12,11 +11,6 @@
     background-repeat: no-repeat;
 
 }
-.edui-button.edui-for-xiumi-connect .edui-button-wrap .edui-button-body .edui-icon {
-    background-image: url("https://www.geh3408.top/xiumi-connect-icon.png") !important;
-    background-size: contain;
-}
-/* 编辑器 */
 :root {
   --edui-color-active-bg: rgba(200, 200, 200, 0.3);
   --edui-color-border: #EEEEEE;

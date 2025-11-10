@@ -36803,7 +36803,9 @@ UE.registerUI("message", function (editor) {
             Math.max(me.options.zIndex, me.iframe.style.zIndex) + 1;
     }
 });
-// ------------------------------------------------------------------------
+
+// ------------------------------------------------
+// 集成135编辑器
 // 集成135
 UE.registerUI('135editor', function(editor, uiName) {
     // var dialog = new UE.ui.Dialog({
@@ -36850,45 +36852,5 @@ UE.registerUI('135editor', function(editor, uiName) {
     });
     return btn;
 }, undefined);
-UE.registerUI('dialog', function (editor, uiName) {
-	var dialog;
-	function onContentFrom135(event) {
-	    if (typeof event.data !== 'string') {
-	        if (event.data.ready) {
-	            dialog.postMessage(editor.getContent(), '*');
-	        }
-	        return;
-	    }
-	    ;
-	    if (event.data.indexOf('<') !== 0)
-	        return;
-	
-	    editor.setContent(event.data);
-	    editor.fireEvent("catchRemoteImage");
-	    window.removeEventListener('message', onContentFrom135);
-	}
-    var btn = new UE.ui.Button({
-        name   : 'xiumi-connect',
-        title  : '秀米',
-        onclick: function () {
-			dialog = window.open('https://www.geh3408.top/ueditorplus/dist/xiumi-ue-dialog-v5.html', 'dialog', 'height=' + (window.screen.availHeight - 100) + ',width=' + (window.screen.availWidth - 100) + ',top=50,left=50,help=no,resizable=no,status=no,scroll=no')
-			
-            // var dialog = new UE.ui.Dialog({
-            //     iframeUrl: 'xiumi-ue-dialog-v5.html',
-            //     editor   : editor,
-            //     name     : 'xiumi-connect',
-            //     title    : "秀米图文消息助手",
-            //     cssRules : "width:1200px;height:800px;",
-            // });
-			window.removeEventListener('message', onContentFrom135);
-			window.addEventListener('message', onContentFrom135, false);
-            // dialog.render();
-            // dialog.open();
-        }
-    });
-
-    return btn;
-});
-
 
 })();
