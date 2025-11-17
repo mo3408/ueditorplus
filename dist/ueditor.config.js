@@ -162,7 +162,7 @@
                 "|",
                 "contentimport",
                 "ai",
-				"135editor",            //135编辑器
+                "135editor",            //135编辑器
                 "help",                // 帮助
             ]
         ]
