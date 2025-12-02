@@ -95,6 +95,7 @@
                 "rowspacingtop",// 段前距
                 "rowspacingbottom",    // 段后距
                 "lineheight",          // 行间距
+                "letterspacing",       // 字间距
                 "|",
                 "customstyle",         // 自定义标题
                 "paragraph",           // 段落格式
@@ -161,8 +162,8 @@
                 "searchreplace",       // 查询替换
                 "|",
                 "contentimport",
+				"135editor",            //135编辑器
                 "ai",
-                "135editor",            //135编辑器
                 "help",                // 帮助
             ]
         ]

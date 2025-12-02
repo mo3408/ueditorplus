@@ -1,20 +1,14 @@
-# UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus) [![star](https://img.shields.io/github/stars/mo3408/ueditorplus.svg)](https://github.com/mo3408/ueditorplus)  
+# UEditor Plus
 
+基于 UEditor 二次开发的富文本编辑器，让UEditor重新焕发活力
 
+![UEditor Plus](https://ms-assets.modstart.com/demo/UEditorPlus_v2.1.0.jpeg)
 
-🌈🌈🌈祝开发者2026即将到来的元旦快乐！UEditorPlus 是基于 UEditor 二次开发的富文本编辑器，让 UEditor 焕然一新,已集成秀米、135编辑器，会不定时更新！！！
-
-![输入图片说明](%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20241116195402.png)
-![输入图片说明](%E6%88%AA%E5%9B%BE20250418201117829.png)
+[![star](https://img.shields.io/github/stars/modstart-lib/ueditor-plus.svg)](https://github.com/modstart-lib/ueditor-plus)
+[![star](https://gitee.com/modstart-lib/ueditor-plus/badge/star.svg)](https://gitee.com/modstart-lib/ueditor-plus)
+[![star](https://gitcode.com/modstart-lib/ueditor-plus/star/badge.svg)](https://gitcode.com/modstart-lib/ueditor-plus)
 
 > `/dist/` 和 `/dist-min/` 目录分别为构建的非压缩和压缩版代码，可直接使用
-
-## 飞书群：
-
-![输入图片说明](wechat_2025-07-21_134944_790.png)
-
-## 联系方式 (进群请添加vx,请备注来源)
-![输入图片说明](%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250812200307.png)
 
 ## 功能亮点
 
@@ -24,6 +18,17 @@
 - 图片、文件、视频上传配置化定制增强
 - 演示界面重构，右上角可直接查看当前演示界面代码
 - 兼容现有UEditor，实现无缝切换
+
+## 相关链接
+
+- 在线演示：[https://open-demo.modstart.com/ueditor-plus/_examples/](https://open-demo.modstart.com/ueditor-plus/_examples/)
+- 使用文档： [https://open-doc.modstart.com/ueditor-plus](https://open-doc.modstart.com/ueditor-plus)
+
+## 使用遇到问题
+
+自开源以来，UEditor Plus 已经被大家广泛关注，也收到了很多反馈。
+
+为提高问题解决的效率，在提交问题时，请大家自行搭建一个最小可复现的环境代码（`zip` 压缩包 或 `git` 仓库地址），不提供的问题或者 `issue` 将不予解决和解答。
 
 ## 使用教程
 
@@ -40,26 +45,37 @@
     });
 </script>
 ```
+
 ### vue2 使用
-```
+
+① 安装插件支持
+
+```shell
 npm i --save vue-ueditor-wrap@2.x
 # 或
 yarn add --save vue-ueditor-wrap@2.x
 ```
-解压 UEditorPlus 到静态资源目录
 
-复制 dist-min 到项目 public/static/UEditorPlus/ 目录
-引入组件并使用
+② 解压 UEditorPlus 到静态资源目录
+
+复制 `dist-min` 到项目 `public/static/UEditorPlus/` 目录
+
+③ 引入组件并使用
 
 ```html
 
 <template>
     <div>
-        <vue-ueditor-wrap v-model="content" editor-id="editor" :config="editorConfig" :editorDependencies="['ueditor.config.js','ueditor.all.js']" style="height:500px;"/>
+        <vue-ueditor-wrap v-model="content"
+                          editor-id="editor"
+                          :config="editorConfig"
+                          :editorDependencies="['ueditor.config.js','ueditor.all.js']"
+                          style="height:500px;"/>
     </div>
 </template>
 <script>
     import VueUeditorWrap from 'vue-ueditor-wrap'
+
     export default {
         components: {
             VueUeditorWrap
@@ -69,6 +85,7 @@ yarn add --save vue-ueditor-wrap@2.x
                 content: '<p>Hello UEditorPlus</p>',
                 editorConfig: {
                     // 后端服务地址，后端处理参考
+                    // https://open-doc.modstart.com/ueditor-plus/backend.html
                     serverUrl: '/api/path/to/server',
                     UEDITOR_HOME_URL: '/static/UEditorPlus/',
                     UEDITOR_CORS_URL: '/static/UEditorPlus/',
@@ -78,6 +95,7 @@ yarn add --save vue-ueditor-wrap@2.x
     }
 </script>
 ```
+
 ### vue3 使用
 
 ① 安装插件支持
@@ -87,6 +105,7 @@ npm i --save vue-ueditor-wrap@3.x
 # 或
 yarn add --save vue-ueditor-wrap@3.x
 ```
+
 ② 解压 UEditorPlus 到静态资源目录
 
 复制 `dist-min` 到项目 `public/static/UEditorPlus/` 目录
@@ -178,46 +197,75 @@ function App() {
 export default App;
 ```
 
+## 关于Bug反馈与维护
+
+- 众所周知 UEditor 使用的人数多，目前已经累积了N个Bug，开源不易需要大家共同维护
+- 对于在实际使用中遇到的问题，如果急需解决推荐使用 [悬赏Issue](https://gitee.com/modstart-lib/ueditor-plus/reward_issues/new)，这样让更多有能力的开发者有共同维护的动力
+
+## ✉️ 使用交流
+
+> 添加好友请备注 UEditorPlus
+
+<table width="100%">
+    <thead>
+        <tr>
+            <th width="50%">微信交流群</th>
+            <th>QQ交流群</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img style="width:100%;" 
+                     src="https://modstart.com/contact/ContactWechatGroup" />
+            </td>
+            <td>
+                <img style="width:100%;"
+                     src="https://modstart.com/contact/ContactQQGroup" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
 ## 二次开发
 
 ### 第一步，clone代码到本地
 
 ```shell
-git clone https://gitee.com/mo3408/ueditorplus
-
-或
-
-git clone https://gitcode.com/mo3408/ueditorplus.git
+git clone https://gitee.com/modstart-lib/ueditor-plus.git
 ```
 
 ### 第二步，开始功能开发
 
-使用浏览器打开 `dist或者dist-min/index.html` 页面相关内容，完成功能开发
+使用浏览器打开 `_examples/index.html` 页面相关内容，完成功能开发
 
+### 第三步，打包
+
+```shell
+npm install
+grunt default
+```
+
+## UEditor相关链接
+
+- UEditor 官网：[http://ueditor.baidu.com](http://ueditor.baidu.com)
+- UEditor API 文档：[http://ueditor.baidu.com/doc](http://ueditor.baidu.com/doc)
+- UEditor 文档：[http://fex.baidu.com/ueditor/](http://fex.baidu.com/ueditor/)
+- UEditor API 文档：[http://ueditor.baidu.com/doc](http://ueditor.baidu.com/doc)
 
 ## 更新日志
-- 2025-08-22:
-- 调整：秀米编辑器调用修改
-- 2025-04-18：
-- 新增：AI功能，支持富文本续写、内容优化、内容生成等功能
-- 新增：toolbarShows 选项配置，支持动态配置工具栏显示
-- 新增：shortcutMenuShows 选项配置，支持动态配置快捷菜单显示
-- 新增：AI接口对接，支持 OpenAi、DeepSeek 模型对接
-- 优化：编辑器弹窗界面显示和颜色优化
-- 2025-02-20：
-- 已知问题修复，表格自适应，全屏编辑优化
-- 修复：编辑器全屏编辑特定情况下异常问题
-- 修复：通过url添加某些视频，按backspace无法删除视频，示例100%复现
-- 优化：移除无用的代码配置
-- 2024-12-17：
-- 上传gif图片格式后，原图动画被取消，默认禁用gif图片压缩
-- 优化：图标样式大小统一调整优化，避免部分图标显示大小不统一
-- 2024-11-16 增加代码脑图功能，可在编辑器中插入代码脑图
-- 2024-11-14 已增加秀米编辑器可同步微信公众号文章（第三方平台请参考平台）
-- 2024-10-01 已增加135编辑器可同步微信公众号文章（第三方平台请参考平台）
-- 2024-09-29 已增加图片、文件、视频上传配置化定制增强
-- 2024-09-28 已增加文档一键导入，支持Word文档（docx）、Markdown文档（md）文档
-- 2024-09-27 已增加全新的UI外观，使用字体图标替换原有图片图标
+
+- [https://open-doc.modstart.com/ueditor-plus/change-log.html](https://open-doc.modstart.com/ueditor-plus/change-log.html)
+
+## 好项目推荐
+
+- 开源数字人系统 [AigcPanel](https://aigcpanel.com)
+- 智能桌面助理 [FocusAny](https://focusany.com)
+- 安卓连接助手 [LinkAndroid](https://linkandroid.com)
+- 快速开发框架 [ModStart](https://modstart.com)
+- 企业内容建站系统 [ModStartCMS](https://modstart.com)
+- 现代化个人博客系统 [ModStartBlog](https://modstart.com)
 
 ## 开源协议
 
