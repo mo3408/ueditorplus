@@ -11,6 +11,10 @@
     background-repeat: no-repeat;
 
 }
+.edui-button.edui-for-xiumi-connect .edui-button-wrap .edui-button-body .edui-icon {
+    background-image: url("https://dl.xiumius.cn/connect/ue/xiumi-connect-icon.png") !important;
+    background-size: contain;
+}
 :root {
   --edui-color-active-bg: rgba(200, 200, 200, 0.3);
   --edui-color-border: #EEEEEE;

@@ -163,6 +163,7 @@
                 "|",
                 "contentimport",
 				"135editor",            //135编辑器
+				"dialog",
                 "ai",
                 "help",                // 帮助
             ]
