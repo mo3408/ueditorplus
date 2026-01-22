@@ -13,13 +13,7 @@
     <script>
         // window.UEDITOR_CONFIG.toolbars[0].push('undo');
     </script>
-    <script>var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?f84f35a44b5cc5c0b10c3fabdf0f322b";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();</script>
+
     <style>
         :root {
             /*--ueditor-top-offset: 20px;*/
@@ -124,6 +118,7 @@
             ai:{
                 // 自定义接入
                 driverRequest: function (option) {
+                    console.log('模拟 AI 请求，参数如下：', option);
                     var texts = []
                     var i = 0;
                     var mock = function () {
