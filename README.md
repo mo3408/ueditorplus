@@ -23,7 +23,8 @@
 - 兼容现有UEditor，实现无缝切换
 
 ## 使用教程
-
+### 演示
+参考_examples目录index.html文件
 ### 原生使用
 
 ```html
