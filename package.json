@@ -3,14 +3,14 @@
   "title": "UEditorPlus",
   "description": "基于 UEditor 的增强版富文本编辑器",
   "version": "4.5.0",
-  "homepage": "http://open.modstart.com",
+  "homepage": "https://gitee.com/mo3408/ueditorplus",
   "author": {
     "name": "Modstart",
-    "url": "http://open.modstart.com"
+    "url": "https://gitee.com/mo3408/ueditorplus"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/modstart-lib/ueditor-plus.git"
+    "url": "https://gitee.com/mo3408/ueditorplus.git"
   },
   "files": [
     "dist-min/**/*",
@@ -27,7 +27,7 @@
     "rich editor"
   ],
   "bugs": {
-    "url": "https://github.com/modstart-lib/ueditor-plus/issues"
+    "url": "https://gitee.com/mo3408/ueditorplus"
   },
   "dependencies": {
     "grunt": "~0.4.1",
