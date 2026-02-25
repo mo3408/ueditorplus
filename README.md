@@ -24,14 +24,18 @@
 
 ## 使用教程
 ### 演示
-参考_examples目录index.html文件
+参考index.html文件
 ### 原生使用
 
 ```html
 
 <script id="editor" type="text/plain" style="height:300px;"></script>
-<script type="text/javascript" src="/path/to/UEditorPlus/ueditor.config.js"></script>
-<script type="text/javascript" src="/path/to/UEditorPlus/ueditor.all.js"></script>
+<link rel="stylesheet" href="_examples/style.css"/>
+<script src="_examples/example.js"></script>
+<script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
+<script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
+<script src="plugins/demo/demo.js"></script>
 <script>
     var ue = UE.getEditor('editor', {
         // ... 更多配置
@@ -46,7 +50,7 @@ yarn add --save vue-ueditor-wrap@2.x
 ```
 解压 UEditorPlus 到静态资源目录
 
-复制 dist-min 到项目 public/static/UEditorPlus/ 目录
+复制 dist-min 到项目 public/static/UEditorPlus/ 目录 (Vue部署可参考，传统方式请以上面为准)
 引入组件并使用
 
 ```html
@@ -181,7 +185,7 @@ export default App;
 ### 第一步，clone代码到本地
 
 ```shell
-git clone https://gitee.com/mo3408/ueditorplus
+git clone https://gitee.com/mo3408/ueditorplus.git
 
 或
 
