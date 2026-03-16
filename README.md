@@ -197,8 +197,6 @@ git clone https://gitcode.com/mo3408/ueditorplus.git
 使用浏览器打开 `dist或者dist-min/index.html` 页面相关内容，完成功能开发
 
 
-## 更新日志
-[更新日志](https://blog.snowytime.cn/docs/ueditorplus/info/change-log)
 
 ## 开源协议
 
