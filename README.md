@@ -4,19 +4,18 @@
 
 🌈🌈🌈祝开发者2026即将到来的劳动节快乐！UEditorPlus 是基于 UEditor 二次开发的富文本编辑器，让 UEditor 焕然一新,已集成秀米、135编辑器，会不定时更新！！！
 
-![输入图片说明](%E6%88%AA%E5%9B%BE20250418201117829.png)
-访问链接加入云湖群聊【ueditorplus交流群】
-[云湖群](https://yhfx.jwznb.com/share?key=6bOyS7kk2Fg0&ts=1774012960 
-)
-群ID: 137550583
+
 
 > `/dist/` 和 `/dist-min/` 目录分别为构建的非压缩和压缩版代码，可直接使用
 
 
-## 联系方式 (进群请添加vx,请备注来源)
-![输入图片说明](%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250812200307.png)
+## 联系方式 (进群请添加V：ayw2050,请备注来源)
 ![输入图片说明](ScreenShot_2026-03-20_212142_190.png)
-
+![输入图片说明](%E6%88%AA%E5%9B%BE20250418201117829.png)（推荐）
+访问链接加入云湖群聊【ueditorplus交流群】
+[云湖群](https://yhfx.jwznb.com/share?key=6bOyS7kk2Fg0&ts=1774012960 
+)
+群ID: 137550583
 ## 功能亮点
 
 - 支持文档一键导入，支持Word文档（docx）、Markdown文档（md）文档
