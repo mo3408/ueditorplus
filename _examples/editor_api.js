@@ -4,7 +4,6 @@
 (function () {
     var paths = [
             'editor.js',
-			'core/demo.js',
             'core/browser.js',
             'core/utils.js',
             'core/EventBase.js',
@@ -135,5 +134,4 @@
     for (var i = 0, pi; pi = paths[i++];) {
         document.write('<script src="' + baseURL + pi + '?v20250415"></script>');
     }
-	
 })();

@@ -11,7 +11,7 @@
 
 }
 .edui-button.edui-for-xiumi-connect .edui-button-wrap .edui-button-body .edui-icon {
-    background-image: url("https://dl.xiumius.cn/connect/ue/xiumi-connect-icon.png") !important;
+    background-image: url("../images/xiumi-connect-icon.png") !important;
     background-size: contain;
 }
 .edui-default .edui-editor {

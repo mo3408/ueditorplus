@@ -32,4 +32,3 @@ window.UE = baidu.editor = {
     }
 };
 var dom = (UE.dom = {});
-

@@ -18,6 +18,9 @@ _deleted/
 *.doc
 *.docx
 *.xml
+/doc/
+/dist/
+/dist-min/
 
 
 
@@ -190,3 +193,7 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /node_modules
+
+/.github/
+/AGENTS.md
+/openspec/

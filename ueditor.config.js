@@ -162,9 +162,9 @@
                 "searchreplace",       // 查询替换
                 "|",
                 "contentimport",
-                "ai",
 				"135editor",            //135编辑器
 				"dialog",               //秀米编辑器
+                "ai",
                 "help",                // 帮助
             ]
         ]

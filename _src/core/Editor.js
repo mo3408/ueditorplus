@@ -1805,5 +1805,4 @@
         },
     };
     utils.inherits(Editor, EventBase);
-	
 })();
