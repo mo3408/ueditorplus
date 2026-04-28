@@ -1,17 +1,9 @@
 # UEditor Plus [![star](https://gitee.com/mo3408/ueditorplus/badge/star.svg)](https://gitee.com/mo3408/ueditorplus) [![star](https://img.shields.io/github/stars/mo3408/ueditorplus.svg)](https://github.com/mo3408/ueditorplus)  
 
 
-
 🌈🌈🌈祝开发者2026即将到来的劳动节快乐！UEditorPlus 是基于 UEditor 二次开发的富文本编辑器，让 UEditor 焕然一新,已集成秀米、135编辑器，会不定时更新！！！
 
-![输入图片说明](doc/%E6%88%AA%E5%9B%BE20250418201117829.png)
-
 > dist文件夹已删除，根目录相当于dist.
-
-
-## 联系方式 (微信进群请添加V：ayw2050,请备注来源或者添加以下云湖群)
-
-![输入图片说明](doc/ScreenShot_2026-03-20_212142_190.png)
 
 访问链接加入云湖群聊【ueditorplus交流群】
 [云湖群](https://yhfx.jwznb.com/share?key=6bOyS7kk2Fg0&ts=1774012960)
