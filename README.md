@@ -45,7 +45,7 @@ yarn add --save vue-ueditor-wrap@2.x
 ```
 解压 UEditorPlus 到静态资源目录
 
-复制 dist-min 到项目 public/static/UEditorPlus/ 目录 (Vue部署可参考，传统方式请以上面为准)
+复制资源文件到项目 public/static/UEditorPlus/ 目录 (Vue部署可参考，传统方式请以上面为准)
 引入组件并使用
 
 ```html
@@ -86,7 +86,7 @@ yarn add --save vue-ueditor-wrap@3.x
 ```
 ② 解压 UEditorPlus 到静态资源目录
 
-复制 `dist-min` 到项目 `public/static/UEditorPlus/` 目录
+复制资源到项目 `public/static/UEditorPlus/` 目录（改成自己的）
 
 ③ 引入组件并使用
 
@@ -140,7 +140,7 @@ yarn add --save react-ueditor-wrap
 
 ② 解压 UEditorPlus 到静态资源目录
 
-复制 `dist-min` 到项目 `public/static/UEditorPlus/` 目录
+复制资源到项目 `public/static/UEditorPlus/` 目录（改成自己的）
 
 ③ 引入组件并使用
 
@@ -189,7 +189,7 @@ git clone https://gitcode.com/mo3408/ueditorplus.git
 
 ### 第二步，开始功能开发
 
-使用浏览器打开 `dist或者dist-min/index.html` 页面相关内容，完成功能开发
+使用浏览器打开 `index.html` 页面相关内容，完成功能开发
 
 
 
