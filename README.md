@@ -5,9 +5,6 @@
 
 > dist文件夹已删除，根目录相当于dist.
 
-访问链接加入云湖群聊【ueditorplus交流群】
-[云湖群](https://yhfx.jwznb.com/share?key=6bOyS7kk2Fg0&ts=1774012960)
-群ID: 137550583
 ## 功能亮点
 
 - 支持文档一键导入，支持Word文档（docx）、Markdown文档（md）文档
@@ -18,6 +15,7 @@
 - 兼容现有UEditor，实现无缝切换
 
 ## 使用教程
+## 
 ### 演示
 参考index.html文件
 ### 原生使用
@@ -38,6 +36,7 @@
 </script>
 ```
 ### vue2 使用
+
 ```
 npm i --save vue-ueditor-wrap@2.x
 # 或
@@ -106,17 +105,12 @@ createApp(App).use(VueUeditorWrap).mount('#app')
 
 <template>
     <div>
-        <vue-ueditor-wrap v-model="content"
-                          editor-id="editor"
-                          :config="editorConfig"
-                          :editorDependencies="['ueditor.config.js','ueditor.all.js']"
-                          style="height:500px;"/>
+        <vue-ueditor-wrap v-model="content" editor-id="editor" :config="editorConfig" :editorDependencies="['ueditor.config.js','ueditor.all.js']" style="height:500px;"/>
     </div>
 </template>
 
 <script setup>
     import {ref} from 'vue';
-
     const content = ref('<p>Hello UEditorPlus</p>');
     const editorConfig = {
         // 后端服务地址，后端处理参考
@@ -183,15 +177,13 @@ export default App;
 git clone https://gitee.com/mo3408/ueditorplus.git
 
 或
-
+git clone https://github.com/mo3408/ueditorplus.git
 git clone https://gitcode.com/mo3408/ueditorplus.git
 ```
 
 ### 第二步，开始功能开发
 
 使用浏览器打开 `index.html` 页面相关内容，完成功能开发
-
-
 
 ## 开源协议
 

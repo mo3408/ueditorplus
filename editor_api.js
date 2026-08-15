@@ -132,7 +132,6 @@
         baseURL = window.UEDITOR_HOME_URL + '_src/';
     }
     for (var i = 0, pi; pi = paths[i++];) {
-		console.log(baseURL,pi);
         document.write('<script src="' + baseURL + pi + '?v20250415"></script>');
     }
 })();
