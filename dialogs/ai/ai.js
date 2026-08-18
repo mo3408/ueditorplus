@@ -161,6 +161,9 @@ var drivers = {
     'Volcengine': function (param) {
         openAiCompletion(aiConfig.driverConfig.url || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions', param)
     },
+    'OrcaRouter': function (param) {
+        openAiCompletion(aiConfig.driverConfig.url || 'https://api.orcarouter.ai/v1/chat/completions', param)
+    },
 }
 
 function getRequest(driver) {
