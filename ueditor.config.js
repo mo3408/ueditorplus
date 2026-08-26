@@ -637,7 +637,7 @@
             // 大模型驱动
             // ModStart
             // OpenAi、DeepSeek、Anthropic、Google、Baidu、Alibaba、Tencent、Huawei
-            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine
+            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine、OrcaRouter
             driver: 'OpenAi',
             // 大模型对接配置
             driverConfig: {
