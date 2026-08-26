@@ -162,10 +162,10 @@
                 "searchreplace",       // 查询替换
                 "|",
                 "contentimport",
-                "ai",
 				"135editor",            //135编辑器
-				"dialog",               //秀米编辑器
-                "help",                // 帮助
+			    "dialog",               //秀米编辑器
+                "ai",
+                // "help",                // 帮助
             ]
         ]
         // 动态选项配置，该值可以通过后端配置接口动态返回，动态控制toolbars的功能
@@ -637,7 +637,7 @@
             // 大模型驱动
             // ModStart
             // OpenAi、DeepSeek、Anthropic、Google、Baidu、Alibaba、Tencent、Huawei
-            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine、OrcaRouter
+            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine
             driver: 'OpenAi',
             // 大模型对接配置
             driverConfig: {
@@ -784,9 +784,8 @@
 
         return protocol + res.join("/");
     }
-    
+
     window.UE = {
         getUEBasePath: getUEBasePath
     };
-	
 })();
