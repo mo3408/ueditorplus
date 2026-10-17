@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>秀米图文排版</title>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        #xiumi {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="xiumi" src="https://xiumi.us/studio/v5#/paper"></iframe>
+    <script type="text/javascript" src="../internal.js?0c13553b"></script>
+    <script type="text/javascript">
+        (function () {
+            // 秀米站点，插件内所有通信都以该地址为准，不可修改
+            var XIUMI_ORIGIN = "https://xiumi.us";
+            // 握手标识符由秀米规定，大小写敏感，不可修改
+            var CONNECT_FLAG = "XIUMI:3rdEditor:Connect";
+            var xiumi = document.getElementById("xiumi");
+            var connected = false;
+
+            function connect() {
+                try {
+                    xiumi.contentWindow.postMessage(CONNECT_FLAG, XIUMI_ORIGIN);
+                } catch (e) {
+                }
+            }
+
+            xiumi.onload = connect;
+            // iframe 可能在脚本执行前就完成加载，这里补一次握手
+            window.setTimeout(function () {
+                if (!connected) {
+                    connect();
+                }
+            }, 3000);
+
+            // 阻止滚轮事件冒泡导致编辑器页面滚动
+            document.addEventListener("mousewheel", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }, false);
+
+            window.addEventListener("message", function (event) {
+                if (event.origin !== XIUMI_ORIGIN) {
+                    return;
+                }
+                // 握手成功后秀米会持续推送状态消息，这里只处理排版结果
+                connected = true;
+                var data = event.data;
+                if (typeof data !== "string" || data.indexOf("<") !== 0) {
+                    return;
+                }
+                editor.execCommand("insertHtml", data);
+                // 秀米图片存放在秀米 CDN，交给编辑器转存到本站
+                editor.fireEvent("catchRemoteImage");
+                dialog.close();
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>

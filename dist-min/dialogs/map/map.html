@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../themes/default/dialog.css?b40ebeab">
+    <script type="text/javascript" src="../internal.js?0c13553b"></script>
+    <style type="text/css">
+        .map-warp {
+            width: 640px;
+            padding: 12px 12px 8px;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .map-toolbar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .map-toolbar .map-label {
+            flex: none;
+            margin-right: 6px;
+            color: #666;
+        }
+
+        .map-input {
+            height: 26px;
+            padding: 0 8px;
+            margin-right: 10px;
+            border: 1px solid #dcdcdc;
+            border-radius: 3px;
+            background: #fff;
+            box-sizing: border-box;
+            line-height: 26px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .map-input:focus {
+            border-color: var(--edui-primary-color);
+        }
+
+        #city {
+            width: 82px;
+        }
+
+        #address {
+            width: 180px;
+        }
+
+        .map-toolbar .btn {
+            flex: none;
+            margin-right: 12px;
+        }
+
+        .map-dynamic {
+            flex: none;
+            margin-left: auto;
+            cursor: pointer;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .map-dynamic input {
+            vertical-align: -2px;
+            margin: 0 4px 0 0;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            border: 1px solid #e5e5e5;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #f5f6f7;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f8fa;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .map-mask-inner {
+            max-width: 420px;
+            padding: 0 16px;
+        }
+
+        .map-mask-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .map-mask-desc {
+            font-size: 12px;
+            line-height: 20px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .map-mask-desc code {
+            padding: 1px 4px;
+            border-radius: 2px;
+            background: #eceef1;
+            color: #d4380d;
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .map-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 24px;
+            margin-top: 6px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        #lnglat {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .map-tip-text {
+            margin-left: 12px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="map-warp" id="mapWarp">
+    <div class="map-toolbar">
+        <span class="map-label"><var id="lang_city"></var></span>
+        <input id="city" class="map-input" type="text" value=""/>
+        <span class="map-label"><var id="lang_address"></var></span>
+        <input id="address" class="map-input" type="text" value="" autocomplete="off"/>
+        <a href="javascript:void(0)" class="btn primary sm" id="btnSearch"><var id="lang_search"></var></a>
+        <label class="map-dynamic" for="is_dynamic">
+            <input id="is_dynamic" type="checkbox" checked/><span><var id="lang_dynamicmap"></var></span>
+        </label>
+    </div>
+    <div class="map-container">
+        <div id="container"></div>
+        <div class="map-mask" id="mapMask" style="display:none;">
+            <div class="map-mask-inner">
+                <div class="map-mask-title" id="maskTitle"></div>
+                <div class="map-mask-desc" id="maskDesc"></div>
+                <a class="btn primary sm" id="maskLink" href="https://console.amap.com/dev/key/app"
+                   target="_blank" rel="noopener">前往高德开放平台</a>
+            </div>
+        </div>
+    </div>
+    <div class="map-footer">
+        <span id="lnglat"></span>
+        <span class="map-tip-text"><var id="lang_clicktip"></var></span>
+    </div>
+</div>
+<script type="text/javascript">
+    (function () {
+        var mapConfig = editor.options.mapConfig || {};
+        var mapKey = mapConfig.key || '';
+        var mapSecurityCode = mapConfig.securityJsCode || '';
+        var defaultCity = mapConfig.city || "北京";
+        var defaultZoom = parseInt(mapConfig.zoom, 10) || 11;
+        var defaultWidth = parseInt(mapConfig.width, 10) || 0;
+        var defaultHeight = parseInt(mapConfig.height, 10) || 0;
+
+        var map, marker, placeSearch, geocoder;
+        // 当前编辑的地图节点（iframe 或 静态图），用于「修改」时替换原节点
+        var mapNode = null;
+        var mapStyleStr = "";
+        var curLng = 116.397428, curLat = 39.90923, curZoom = defaultZoom;
+        var insertWidth = defaultWidth, insertHeight = defaultHeight;
+        var isDynamicNode = false;
+
+        function trim(str) {
+            return (str || "").replace(/^\s+|\s+$/g, "");
+        }
+
+        function getParam(url, name) {
+            var mat = new RegExp("[?#&]" + name + "=([^?#&]+)", "i").exec(url || "");
+            if (!mat) {
+                return "";
+            }
+            var val = mat[1];
+            try {
+                val = decodeURIComponent(val);
+            } catch (e) {
+            }
+            return val;
+        }
+
+        function splitPos(str) {
+            var arr = (str || "").split(","),
+                lng = parseFloat(arr[0]),
+                lat = parseFloat(arr[1]);
+            if (isNaN(lng) || isNaN(lat)) {
+                return null;
+            }
+            return [lng, lat];
+        }
+
+        function showMask(type) {
+            var title, desc, link;
+            if (type === "loadfail") {
+                title = getText("lang_loadfail", "地图加载失败");
+                desc = getText("lang_loadfail_desc", "请检查网络是否可访问 webapi.amap.com，以及 Key 与安全密钥是否正确。");
+            } else {
+                title = getText("lang_nokey", "未配置高德地图 Key");
+                desc = getText("lang_nokey_desc", "请在 ueditor.config.js 中配置 mapConfig.key（高德开放平台 → 应用管理 → 新建应用，添加 Key 时服务平台选择「Web端(JS API)」）。");
+            }
+            $G("maskTitle").innerHTML = title;
+            $G("maskDesc").innerHTML = desc;
+            $G("maskLink").style.display = type === "loadfail" ? "none" : "";
+            $G("mapMask").style.display = "flex";
+        }
+
+        // 语言包取值（lang 由 internal.js 提供；window load 后 var 节点会被替换掉）
+        function getText(key, defaultValue) {
+            if (lang && lang.static && lang.static[key]) {
+                var val = lang.static[key];
+                return typeof val === "string" ? val : defaultValue;
+            }
+            return defaultValue;
+        }
+
+        // 读取编辑器内已有的地图节点，回填参数（兼容旧版百度地图节点）
+        function readMapNode() {
+            var node = editor.selection.getRange().getClosedNode();
+            if (!node || !node.getAttribute) {
+                return;
+            }
+            var tag = node.tagName,
+                src = node.getAttribute("src") || "",
+                isIframe = tag === "IFRAME" && (domUtils.hasClass(node, "ueditor_amap") || domUtils.hasClass(node, "ueditor_baidumap")),
+                isImage = tag === "IMG" && /^https?:\/\/(webapi|restapi)\.amap\.com\/|^https?:\/\/api\.map\.baidu\.com\//i.test(src);
+            if (!isIframe && !isImage) {
+                return;
+            }
+            mapNode = node;
+            mapStyleStr = node.style.cssText || "";
+            isDynamicNode = isIframe;
+            if (!mapKey) {
+                mapKey = getParam(src, "key");
+            }
+            if (!mapSecurityCode) {
+                mapSecurityCode = getParam(src, "skey");
+            }
+            // 标注点优先，其次静态图 location，最后中心点
+            var pos = splitPos(getParam(src, "markers").replace(/^[^:]*:/, "")) ||
+                splitPos(getParam(src, "location")) ||
+                splitPos(getParam(src, "center"));
+            if (pos) {
+                curLng = pos[0];
+                curLat = pos[1];
+            }
+            var zoom = parseInt(getParam(src, "zoom"), 10);
+            if (zoom) {
+                curZoom = zoom;
+            }
+            if (isIframe) {
+                insertWidth = parseInt(node.getAttribute("width"), 10) || insertWidth;
+                insertHeight = parseInt(node.getAttribute("height"), 10) || insertHeight;
+            } else {
+                var size = getParam(src, "size").split("*");
+                insertWidth = parseInt(size[0], 10) || insertWidth;
+                insertHeight = parseInt(size[1], 10) || insertHeight;
+            }
+        }
+
+        function updatePos(lnglat) {
+            if (!lnglat) {
+                return;
+            }
+            $G("lnglat").innerHTML = lnglat.getLng().toFixed(6) + ", " + lnglat.getLat().toFixed(6);
+        }
+
+        function loadAMap(callback) {
+            if (window.AMap) {
+                callback();
+                return;
+            }
+            if (mapSecurityCode) {
+                window._AMapSecurityConfig = { securityJsCode: mapSecurityCode };
+            }
+            var script = document.createElement("script");
+            script.src = "https://webapi.amap.com/maps?v=2.0&key=" + encodeURIComponent(mapKey);
+            script.onload = function () {
+                if (window.AMap) {
+                    callback();
+                } else {
+                    showMask("loadfail");
+                }
+            };
+            script.onerror = function () {
+                showMask("loadfail");
+            };
+            document.head.appendChild(script);
+        }
+
+        function createMap() {
+            map = new AMap.Map("container", {
+                zoom: curZoom,
+                center: [curLng, curLat],
+                resizeEnable: true,
+                viewMode: "2D"
+            });
+            marker = new AMap.Marker({
+                position: [curLng, curLat],
+                draggable: true,
+                cursor: "move",
+                anchor: "bottom-center"
+            });
+            map.add(marker);
+
+            map.on("click", function (e) {
+                marker.setPosition(e.lnglat);
+                updatePos(e.lnglat);
+            });
+            marker.on("dragend", function (e) {
+                updatePos(e.lnglat);
+            });
+            map.on("complete", function () {
+                updatePos(marker.getPosition());
+            });
+            updatePos(marker.getPosition());
+        }
+
+        function initSearch() {
+            placeSearch = new AMap.PlaceSearch({
+                city: defaultCity,
+                citylimit: false,
+                pageSize: 10,
+                pageIndex: 1
+            });
+            geocoder = new AMap.Geocoder({ city: defaultCity });
+
+            $G("city").value = defaultCity;
+            $G("address").value = "";
+
+            $G("btnSearch").onclick = doSearch;
+            $G("address").onkeydown = function (evt) {
+                evt = evt || window.event;
+                if (evt.keyCode === 13) {
+                    doSearch();
+                }
+            };
+            $G("city").onkeydown = $G("address").onkeydown;
+            $focus($G("address"));
+        }
+
+        function setPosition(lnglat, zoom) {
+            marker.setPosition(lnglat);
+            updatePos(lnglat);
+            if (zoom) {
+                map.setZoomAndCenter(Math.max(map.getZoom(), zoom), lnglat);
+            } else {
+                map.setCenter(lnglat);
+            }
+        }
+
+        function doSearch() {
+            var city = trim($G("city").value),
+                keyword = trim($G("address").value);
+            if (!city && !keyword) {
+                alert(lang.cityMsg);
+                return;
+            }
+            var searchCity = city || "全国",
+                searchKey = keyword || city;
+            // 先按 POI 检索（地名、商圈、建筑物），失败再走地理编码（详细地址）
+            placeSearch.setCity(searchCity);
+            placeSearch.search(searchKey, function (status, result) {
+                var poi = status === "complete" && result.poiList && result.poiList.pois && result.poiList.pois[0];
+                if (poi && poi.location) {
+                    setPosition(poi.location, 15);
+                    return;
+                }
+                geocoder.setCity(searchCity);
+                geocoder.getLocation(city ? city + keyword : keyword, function (s, r) {
+                    var gc = s === "complete" && r.geocodes && r.geocodes[0];
+                    if (gc && gc.location) {
+                        setPosition(gc.location, 15);
+                    } else {
+                        alert(lang.errorMsg);
+                    }
+                });
+            });
+        }
+
+        function buildDynamicHtml() {
+            var center = map.getCenter(),
+                size = map.getSize(),
+                pos = marker.getPosition(),
+                width = Math.round(size.width || insertWidth) || 640,
+                height = Math.round(size.height || insertHeight) || 340,
+                params = [
+                    "center=" + center.getLng() + "," + center.getLat(),
+                    "zoom=" + map.getZoom(),
+                    "width=" + width,
+                    "height=" + height,
+                    "markers=" + pos.getLng() + "," + pos.getLat()
+                ];
+            if (mapKey) {
+                params.push("key=" + encodeURIComponent(mapKey));
+            }
+            if (mapSecurityCode) {
+                params.push("skey=" + encodeURIComponent(mapSecurityCode));
+            }
+            var base = editor.options.UEDITOR_CORS_URL || editor.options.UEDITOR_HOME_URL || "/";
+            base = base.replace(/\/+$/, "") + "/";
+            var url = base + "dialogs/map/show.html#" + params.join("&");
+            return '<iframe class="ueditor_amap" src="' + url + '" width="' + width + '" height="' + height + '"' +
+                ' frameborder="0" scrolling="no"' + (mapStyleStr ? ' style="' + mapStyleStr + '"' : '') + '></iframe>';
+        }
+
+        function buildStaticHtml() {
+            var center = map.getCenter(),
+                size = map.getSize(),
+                pos = marker.getPosition(),
+                width = Math.round(size.width || insertWidth) || 640,
+                height = Math.round(size.height || insertHeight) || 340,
+                zoom = Math.min(map.getZoom(), 17),
+                url = "https://restapi.amap.com/v3/staticmap?location=" + center.getLng() + "," + center.getLat() +
+                    "&zoom=" + zoom + "&size=" + width + "*" + height +
+                    "&markers=mid,,A:" + pos.getLng() + "," + pos.getLat() +
+                    "&key=" + encodeURIComponent(mapKey);
+            // 小尺寸时取 2 倍图，避免高分屏模糊（接口限制：scale=2 时最大 512）
+            if (width <= 512 && height <= 512) {
+                url += "&scale=2";
+            }
+            return '<img src="' + url + '" width="' + width + '" height="' + height + '"' +
+                (mapStyleStr ? ' style="' + mapStyleStr + '"' : '') + '/>';
+        }
+
+        function insertMap() {
+            if (!map || !marker) {
+                alert(lang.noKeyMsg);
+                return false;
+            }
+            var html = $G("is_dynamic").checked ? buildDynamicHtml() : buildStaticHtml();
+            if (mapNode) {
+                var div = editor.document.createElement("div");
+                div.innerHTML = html;
+                var newNode = div.firstChild;
+                mapNode.parentNode.insertBefore(newNode, mapNode);
+                domUtils.remove(mapNode);
+                mapNode = null;
+            } else {
+                editor.execCommand("inserthtml", html);
+            }
+        }
+
+        dialog.onok = function () {
+            return insertMap();
+        };
+
+        readMapNode();
+
+        // 容器尺寸：编辑已有地图时沿用原尺寸，否则使用配置尺寸
+        if (insertWidth) {
+            $G("mapWarp").style.width = insertWidth + 24 + "px";
+            $G("container").parentNode.style.width = insertWidth + "px";
+        }
+        if (insertHeight) {
+            $G("container").parentNode.style.height = insertHeight + "px";
+        }
+        // 编辑已有动态地图时保持动态模式；否则取配置，默认插入动态地图
+        $G("is_dynamic").checked = mapNode ? isDynamicNode : mapConfig.dynamic !== false;
+
+        if (!mapKey) {
+            showMask("nokey");
+            // 未配置 Key 时仍允许切换为静态图以外的操作，但保存会提示
+            $G("btnSearch").onclick = function () {
+                alert(lang.noKeyMsg);
+            };
+            return;
+        }
+
+        loadAMap(function () {
+            AMap.plugin(["AMap.PlaceSearch", "AMap.Geocoder"], function () {
+                try {
+                    createMap();
+                    initSearch();
+                } catch (e) {
+                    // Key 无效 / 域名不匹配等异常，避免对话框只剩白板
+                    showMask("loadfail");
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>
