@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>第三方编辑器自动化自测</title>
+    <script type="text/javascript" charset="utf-8" src="../ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<script id="editor" type="text/plain" style="width:100%;height:300px;"><p>自测内容</p></script>
+<pre id="result">PENDING</pre>
+<script type="text/javascript">
+    window.UEDITOR_CONFIG.serverUrl = './../_demo_server/handle.php';
+    window.__TEST__ = {open: [], dialog: null, errors: []};
+    // 拦截 window.open，记录 135 编辑器的弹窗地址
+    window.open = function (url, name) {
+        window.__TEST__.open.push(url + '|' + name);
+        return {
+            closed: true,
+            close: function () {
+            },
+            postMessage: function () {
+            }
+        };
+    };
+    var editor = UE.getEditor('editor');
+    editor.ready(function () {
+        setTimeout(function () {
+            try {
+                document.querySelector('.edui-for-editor135 .edui-button-body').click();
+            } catch (e) {
+                window.__TEST__.errors.push('135:' + e.message);
+            }
+            setTimeout(function () {
+                try {
+                    document.querySelector('.edui-for-xiumi .edui-button-body').click();
+                } catch (e) {
+                    window.__TEST__.errors.push('xiumi:' + e.message);
+                }
+                setTimeout(function () {
+                    try {
+                        var dlg = document.querySelector('.edui-for-xiumi .edui-dialog-content');
+                        var iframe = dlg ? dlg.querySelector('iframe') : null;
+                        window.__TEST__.dialog = iframe ? iframe.getAttribute('src') : (dlg ? 'no-iframe' : 'no-dialog');
+                    } catch (e) {
+                        window.__TEST__.errors.push('dlg:' + e.message);
+                    }
+                    document.getElementById('result').textContent = 'RESULT:' + JSON.stringify(window.__TEST__);
+                }, 800);
+            }, 500);
+        }, 600);
+    });
+</script>
+</body>
+</html>

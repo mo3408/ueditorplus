@@ -410,3 +410,23 @@
 .edui-default .edui-for-letterspacing .edui-icon:before {
     content: "\e8a8";
 }
+
+/* 第三方编辑器：135编辑器、秀米，使用品牌图标代替字体图标 */
+.edui-default .edui-for-editor135 .edui-icon:before,
+.edui-default .edui-for-xiumi .edui-icon:before {
+    content: "";
+}
+
+.edui-default .edui-for-editor135 .edui-icon {
+    background-image: url(../images/editor135.png);
+    background-size: 20px auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.edui-default .edui-for-xiumi .edui-icon {
+    background-image: url(../images/xiumi.png);
+    background-size: 16px 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}

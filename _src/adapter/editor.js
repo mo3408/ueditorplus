@@ -229,7 +229,10 @@
                 },
                 _updateIframe: function () {
                     var frame = (editor._iframe = popup.anchorEl);
-                    if (domUtils.hasClass(frame, "ueditor_baidumap")) {
+                    if (
+                        domUtils.hasClass(frame, "ueditor_amap") ||
+                        domUtils.hasClass(frame, "ueditor_baidumap")
+                    ) {
                         editor.selection.getRange().selectNode(frame).select();
                         editor.ui._dialogs.mapDialog.open();
                         popup.hide();
@@ -319,6 +322,15 @@
                                 editor.getLang("delete") +
                                 "</span></nobr>"
                             );
+                        }
+                        // 地图静态图（高德/旧版百度）走地图对话框
+                        if (
+                            dialogs.mapDialog &&
+                            /^https?:\/\/(restapi|webapi)\.amap\.com\/|^https?:\/\/api\.map\.baidu\.com\//i.test(
+                                closedNode.getAttribute("src") || ""
+                            )
+                        ) {
+                            dialogName = "mapDialog";
                         }
                         // if (img.getAttribute("data-word-image")) {
                         //   //todo 放到dialog去做查询

@@ -282,6 +282,7 @@
         formula: "~/dialogs/formula/formula.html?{timestamp}",
         attachment: "~/dialogs/attachment/attachment.html?{timestamp}",
         insertframe: "~/dialogs/insertframe/insertframe.html?{timestamp}",
+        map: "~/dialogs/map/map.html?{timestamp}",
         edittip: "~/dialogs/table/edittip.html?{timestamp}",
         edittable: "~/dialogs/table/edittable.html?{timestamp}",
         edittd: "~/dialogs/table/edittd.html?{timestamp}",
@@ -299,6 +300,7 @@
             "link",
             "insertimage",
             "insertframe",
+            "map",
             "wordimage",
             "insertvideo",
             "insertaudio",
@@ -1105,6 +1107,181 @@
                 ui.setChecked(state);
             }
         });
+        return ui;
+    };
+
+    /**
+     * 135编辑器
+     * 通过 window.open 打开 135 排版页面，使用 postMessage 双向同步内容
+     * 135 页面加载完成后会发送 {ready: true}，此时回传编辑器当前内容
+     * 用户点击「完成编辑」后，135 会把排版结果以 HTML 字符串回传
+     */
+    editorui["editor135"] = function (editor) {
+        var name = "editor135";
+        var config = utils.extend(
+            {
+                // 135 分配的 appkey，留空为免登录的插件模式
+                appkey: "",
+                // 135 排版页面地址
+                url: "https://www.135editor.com/beautify_editor.html",
+                // 打开时把编辑器已有内容同步到 135
+                syncContent: true,
+                // 完成编辑后替换编辑器全部内容，为 false 时插入到光标位置
+                replaceContent: true
+            },
+            editor.options.editor135Config || {}
+        );
+
+        var popup = null;
+        var closeTimer = null;
+
+        function unbind() {
+            window.removeEventListener("message", onMessage, false);
+            if (closeTimer) {
+                window.clearInterval(closeTimer);
+                closeTimer = null;
+            }
+            popup = null;
+        }
+
+        function isEditor135Origin(origin) {
+            return /^https?:\/\/([a-z0-9-]+\.)*135editor\.com(:\d+)?$/i.test(origin || "");
+        }
+
+        function tipError(msg) {
+            if (utils.isFunction(editor.options.tipError)) {
+                editor.options.tipError(msg);
+            } else {
+                window.alert(msg);
+            }
+        }
+
+        function onMessage(event) {
+            if (!popup || !isEditor135Origin(event.origin)) {
+                return;
+            }
+            var data = event.data;
+            // 135 页面加载完成，回传编辑器当前内容
+            if (data && typeof data === "object") {
+                if (data.ready && config.syncContent) {
+                    popup.postMessage(editor.getContent(), "*");
+                }
+                return;
+            }
+            // 只接受 HTML 字符串，忽略其他握手消息
+            if (typeof data !== "string" || data.indexOf("<") !== 0) {
+                return;
+            }
+            var win = popup;
+            unbind();
+            if (config.replaceContent === false) {
+                editor.execCommand("insertHtml", data, true);
+            } else {
+                editor.setContent(data);
+            }
+            // 把 135 内容中的远程图片转存到本站
+            editor.fireEvent("catchRemoteImage");
+            try {
+                win.close();
+            } catch (e) {
+            }
+            editor.focus();
+        }
+
+        var ui = new editorui.Button({
+            className: "edui-for-" + name,
+            title:
+                editor.options.labelMap[name] ||
+                editor.getLang("labelMap." + name) ||
+                "135编辑器",
+            theme: editor.options.theme,
+            onclick: function () {
+                if (
+                    editor.options.toolbarCallback &&
+                    true === editor.options.toolbarCallback(name, editor)
+                ) {
+                    return;
+                }
+                var url =
+                    config.url +
+                    (config.url.indexOf("?") === -1 ? "?" : "&") +
+                    "callback=true&appkey=" +
+                    encodeURIComponent(config.appkey || "");
+                var winWidth = Math.max(window.screen.availWidth - 100, 800);
+                var winHeight = Math.max(window.screen.availHeight - 100, 600);
+                unbind();
+                popup = window.open(
+                    url,
+                    name,
+                    "height=" +
+                    winHeight +
+                    ",width=" +
+                    winWidth +
+                    ",top=50,left=50,resizable=yes,scrollbars=yes,status=no"
+                );
+                if (!popup) {
+                    tipError("浏览器阻止了弹出窗口，请允许本站弹出窗口后重试");
+                    return;
+                }
+                window.addEventListener("message", onMessage, false);
+                // 用户直接关闭 135 窗口时清理监听
+                closeTimer = window.setInterval(function () {
+                    if (!popup || popup.closed) {
+                        unbind();
+                    }
+                }, 1000);
+            }
+        });
+        editorui.buttons[name] = ui;
+        return ui;
+    };
+
+    /**
+     * 秀米图文排版
+     * 在对话框内嵌 https://xiumi.us ，通过 postMessage 握手后回传排版结果
+     * 注意：站点建议使用 https 访问，否则秀米可能无法保持登录状态
+     */
+    editorui["xiumi"] = function (editor) {
+        var name = "xiumi";
+        var config = utils.extend(
+            {
+                iframeUrl: "~/dialogs/xiumi/xiumi.html?{timestamp}"
+            },
+            editor.options.xiumiConfig || {}
+        );
+        var title =
+            editor.options.labelMap[name] ||
+            editor.getLang("labelMap." + name) ||
+            "秀米";
+        var width = Math.max(window.innerWidth - 80, 960);
+        var height = Math.max(window.innerHeight - 120, 620);
+        var dialog = new editorui.Dialog({
+            name: name,
+            iframeUrl: editor.ui.mapUrl(config.iframeUrl),
+            editor: editor,
+            title: title,
+            cssRules: "width:" + width + "px;height:" + height + "px;",
+            closeDialog: editor.getLang("closeDialog"),
+            holdScroll: true
+        });
+        editor.ui._dialogs[name + "Dialog"] = dialog;
+
+        var ui = new editorui.Button({
+            className: "edui-for-" + name,
+            title: title,
+            theme: editor.options.theme,
+            onclick: function () {
+                if (
+                    editor.options.toolbarCallback &&
+                    true === editor.options.toolbarCallback(name, editor)
+                ) {
+                    return;
+                }
+                dialog.render();
+                dialog.open();
+            }
+        });
+        editorui.buttons[name] = ui;
         return ui;
     };
 })();

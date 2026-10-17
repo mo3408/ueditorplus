@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>地图插件自测</title>
+    <script type="text/javascript" charset="utf-8" src="../ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<script id="editor" type="text/plain" style="width:100%;height:300px;"><p>地图自测</p></script>
+<pre id="result">PENDING</pre>
+<script type="text/javascript">
+    window.UEDITOR_CONFIG.serverUrl = './../_demo_server/handle.php';
+    window.UEDITOR_CONFIG.mapConfig = {
+        key: '00000000000000000000000000000000',
+        city: '北京',
+        zoom: 11
+    };
+    var T = {steps: [], errors: []};
+    window.onerror = function (m) {
+        T.errors.push('win:' + m);
+    };
+
+    function log(k, v) {
+        T.steps.push(k + '=' + v);
+    }
+
+    function dlgDoc() {
+        var dlg = document.querySelector('.edui-for-map .edui-dialog-content');
+        var iframe = dlg && dlg.querySelector('iframe');
+        return iframe ? iframe.contentDocument : null;
+    }
+
+    function okBtn() {
+        return document.querySelector('.edui-for-map .edui-okbutton .edui-button-body');
+    }
+
+    var editor = UE.getEditor('editor');
+    editor.ready(function () {
+        setTimeout(function () {
+            var btn = document.querySelector('.edui-toolbar .edui-for-map .edui-button-body');
+            var wrap = document.querySelector('.edui-toolbar .edui-for-map');
+            log('btn', !!btn);
+            log('title', wrap ? wrap.getAttribute('title') : 'none');
+            try {
+                btn.click();
+            } catch (e) {
+                T.errors.push('click1:' + e.message);
+            }
+            setTimeout(function () {
+                var d = dlgDoc();
+                log('doc', !!d);
+                if (d) {
+                    var mask = d.getElementById('mapMask');
+                    log('mask', mask ? mask.style.display : 'no-el');
+                    log('maskTitle', d.getElementById('maskTitle') ? d.getElementById('maskTitle').textContent : '');
+                    log('city', d.getElementById('city') ? d.getElementById('city').value : '');
+                    log('dynamic', d.getElementById('is_dynamic') ? d.getElementById('is_dynamic').checked : '');
+                    log('mapKids', d.getElementById('container') ? d.getElementById('container').children.length : -1);
+                    log('lnglat', d.getElementById('lnglat') ? d.getElementById('lnglat').textContent : '');
+                }
+                var ok = okBtn();
+                log('okBtn', !!ok);
+                try {
+                    ok && ok.click();
+                } catch (e) {
+                    T.errors.push('ok1:' + e.message);
+                }
+                setTimeout(function () {
+                    var c1 = editor.getContent();
+                    var m1 = c1.match(/dialogs\/map\/show\.html#[^"']*/);
+                    log('dynamicHtml', /ueditor_amap/.test(c1) + '|' + (m1 ? m1[0] : 'none'));
+                    try {
+                        btn.click();
+                    } catch (e) {
+                        T.errors.push('click2:' + e.message);
+                    }
+                    setTimeout(function () {
+                        var d2 = dlgDoc();
+                        log('doc2', !!d2);
+                        if (d2 && d2.getElementById('is_dynamic')) {
+                            d2.getElementById('is_dynamic').checked = false;
+                        }
+                        var ok2 = okBtn();
+                        try {
+                            ok2 && ok2.click();
+                        } catch (e) {
+                            T.errors.push('ok2:' + e.message);
+                        }
+                        setTimeout(function () {
+                            var c2 = editor.getContent();
+                            var imgs = c2.match(/<img[^>]*staticmap[^>]*>/g);
+                            log('staticHtml', imgs ? imgs[0] : 'none');
+                            document.getElementById('result').textContent = 'RESULT:' + JSON.stringify(T);
+                        }, 900);
+                    }, 1600);
+                }, 900);
+            }, 4500);
+        }, 700);
+    });
+</script>
+</body>
+</html>

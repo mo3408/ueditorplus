@@ -131,6 +131,7 @@
                 "insertaudio",         // 音频
                 "attachment",          // 附件
                 "insertframe",         // 插入Iframe
+                "map",                 // 插入地图（高德地图），需配置 mapConfig.key
                 "insertcode",          // 插入代码
                 "pagebreak",           // 分页
                 "template",            // 模板
@@ -162,10 +163,12 @@
                 "searchreplace",       // 查询替换
                 "|",
                 "contentimport",
-				"135editor",            //135编辑器
-			    "dialog",               //秀米编辑器
+                "|",
+                "editor135",           // 135编辑器
+                "xiumi",               // 秀米编辑器
+                "|",
                 "ai",
-                // "help",                // 帮助
+                "help",                // 帮助
             ]
         ]
         // 动态选项配置，该值可以通过后端配置接口动态返回，动态控制toolbars的功能
@@ -280,6 +283,43 @@
             editorMode: 'live',
             // 编辑器地址
             editorLiveServer: 'https://latexeasy.com',
+        }
+
+        // 135编辑器配置
+        , editor135Config: {
+            // 135 分配的 appkey，留空为免登录的插件模式，账号打通请联系 135 官方
+            appkey: '',
+            // 135 排版页面地址
+            url: 'https://www.135editor.com/beautify_editor.html',
+            // 打开时把编辑器已有内容同步到 135
+            syncContent: true,
+            // 完成编辑后替换编辑器全部内容，为 false 时插入到光标位置
+            replaceContent: true,
+        }
+
+        // 秀米编辑器配置
+        , xiumiConfig: {
+            // 秀米排版弹窗页面地址，一般无需修改
+            iframeUrl: '~/dialogs/xiumi/xiumi.html?{timestamp}',
+        }
+
+        // 地图配置（高德地图）
+        , mapConfig: {
+            // 高德开放平台 Web端(JS API) Key，不配置时「插入地图」不可用
+            // 申请地址：https://console.amap.com/dev/key/app
+            key: '5447eef5618aa32911bd2b0fd69b0e71',
+            // 高德安全密钥：2021-12-02 之后申请的 Key 需要配合安全密钥使用
+            // 若已在 Key 上配置了域名白名单，可留空
+            securityJsCode: 'b50447880d0b140e28195bb33c1a1de8',
+            // 默认城市
+            city: '北京',
+            // 默认缩放级别（3~18）
+            zoom: 11,
+            // 默认插入尺寸，留空则使用对话框内地图尺寸
+            width: 0,
+            height: 0,
+            // 默认插入动态地图（可拖动缩放），false 时默认插入静态图片
+            dynamic: true,
         }
 
         // 自动保存
@@ -637,7 +677,7 @@
             // 大模型驱动
             // ModStart
             // OpenAi、DeepSeek、Anthropic、Google、Baidu、Alibaba、Tencent、Huawei
-            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine、OrcaRouter
+            // ByteDance、Zhipu、Moonshot、iFlytek、Volcengine
             driver: 'OpenAi',
             // 大模型对接配置
             driverConfig: {

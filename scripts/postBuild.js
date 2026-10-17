@@ -10,7 +10,8 @@ function replacePlaceholderFile(filePath) {
     let changed = false;
     content = content.replace(/['"]([^'"]+)\?\{timestamp:?.*?\}['"]/g,
         function (match, contents, offset, input_string) {
-            let fileTimestampPath = path.join(path.dirname(filePath), contents);
+            // use POSIX separators so the "~/xxx" lookup works on Windows too
+            let fileTimestampPath = path.join(path.dirname(filePath), contents).replace(/\\/g, '/');
             if (fileTimestampPath.indexOf('/~/') >= 0) {
                 fileTimestampPath = fileTimestampPath.replace('/~/', '/');
             }

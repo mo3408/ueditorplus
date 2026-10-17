@@ -45,6 +45,8 @@ UE.I18N['zh-cn'] = {
         'deletetable': '删除表格',
         'cleardoc': '清空文档',
         'contentimport': '导入内容',
+        'editor135': '135编辑器',
+        'xiumi': '秀米图文排版',
         'ai': 'AI智能助手',
         'insertparagraphbeforetable': "表格前插入行",
         'insertcode': '代码语言',
@@ -77,6 +79,7 @@ UE.I18N['zh-cn'] = {
         'rowspacingbottom': '段后距',
         'pagebreak': '分页',
         'insertframe': '插入Iframe',
+        'map': '高德地图',
         'imagenone': '默认',
         'imageleft': '左浮动',
         'imageright': '右浮动',
@@ -656,6 +659,22 @@ UE.I18N['zh-cn'] = {
             'align': {title: "对齐方式", options: ["默认", "左对齐", "右对齐", "居中"]}
         },
         'enterAddress': '请输入地址!'
+    },
+    'map': {
+        'static': {
+            'lang_city': '城市：',
+            'lang_address': '地点：',
+            'lang_search': '搜索',
+            'lang_dynamicmap': '插入动态地图',
+            'lang_clicktip': '点击地图可移动标注，拖动、滚轮缩放地图',
+            'lang_nokey': '未配置高德地图 Key，地图暂不可用',
+            'lang_nokey_desc': '请在 ueditor.config.js 中配置 mapConfig.key：高德开放平台 → 应用管理 → 新建应用，添加 Key 时服务平台选择「Web端(JS API)」。2021-12-02 之后申请的 Key 还需同时配置 mapConfig.securityJsCode（安全密钥）。',
+            'lang_loadfail': '地图加载失败',
+            'lang_loadfail_desc': '请检查网络是否可访问 webapi.amap.com，以及 Key、安全密钥是否与当前域名匹配。'
+        },
+        'cityMsg': '请先填写城市',
+        'errorMsg': '抱歉，找不到该位置！',
+        'noKeyMsg': '未配置高德地图 Key，无法插入地图，请在 ueditor.config.js 中配置 mapConfig.key'
     },
     'link': {
         'static': {

@@ -46,6 +46,8 @@ UE.I18N['en'] = {
         'deletetable': 'DeleteTable',
         'cleardoc': 'Clear',
         'contentimport': 'Content Import',
+        'editor135': '135 Editor',
+        'xiumi': 'Xiumi',
         'ai': 'AI',
         'insertparagraphbeforetable': "InsertParagraphBeforeTable",
         'fontfamily': 'FontFamily',
@@ -76,6 +78,7 @@ UE.I18N['en'] = {
         'rowspacingbottom': 'RowSpacingBottom',
         'pagebreak': 'PageBreak',
         'insertframe': 'Iframe',
+        'map': 'Map',
         'imagenone': 'Default',
         'imageleft': 'ImageLeft',
         'imageright': 'ImageRight',
@@ -576,6 +579,22 @@ UE.I18N['en'] = {
             'align': {title: "Alignment", options: ["Default", "Left", "Right", "Center"]}
         },
         'enterAddress': 'Please enter an address!'
+    },
+    map: {
+        'static': {
+            'lang_city': 'City:',
+            'lang_address': 'Place:',
+            'lang_search': 'Search',
+            'lang_dynamicmap': 'Insert dynamic map',
+            'lang_clicktip': 'Click the map to move the marker; drag and scroll to zoom',
+            'lang_nokey': 'AMap key is not configured',
+            'lang_nokey_desc': 'Please set mapConfig.key in ueditor.config.js (AMap console -> Application Management -> Create Key with platform "Web (JS API)"). Keys issued after 2021-12-02 also need mapConfig.securityJsCode.',
+            'lang_loadfail': 'Failed to load the map',
+            'lang_loadfail_desc': 'Please check whether webapi.amap.com is reachable and whether the key / security code matches the current domain.'
+        },
+        'cityMsg': 'Please enter a city',
+        'errorMsg': 'Sorry, the location was not found!',
+        'noKeyMsg': 'AMap key is not configured, unable to insert a map. Please set mapConfig.key in ueditor.config.js'
     },
     link: {
         'static': {
